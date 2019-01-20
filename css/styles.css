@@ -16,7 +16,10 @@
 .chatbox>p.name{
     text-align: right;
 }
-.chat{
-    width: 80%;
-    max-width: 700px;
+#chat{
+    margin: 0 auto;
+    max-width: 500px;
+}
+#textbox{
+    float: right;
 }

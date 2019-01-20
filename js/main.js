@@ -1,22 +1,30 @@
-let messageBox, chatContainer;
+let messageBox, chatContainer, messageContainer;
 let ownerName = "richardwiden";
 let remoteName = "bot";
 
 $(function () {
     console.log("ready!");
     chatContainer = $('#chat');
+    messageContainer = $('#messages');
     messageBox = $('#messageBox');
 });
 
 function submitForm() {
     let message = messageBox.val();
     console.log(message);
-
-    sendMessage(message, "richardwiden");
+    writeMessage(message, "richardwiden");
 }
 
-function sendMessage(message, name) {
+function writeMessage(message, name) {
     let messageClass = name === ownerName ? "local-side" : "remote-side";
     let chatbox = $('<div></div>').addClass(messageClass).addClass('chatbox')
-    chatContainer.append(chatbox);
+    chatbox.append($('<p></p>').text(message));
+    chatbox.append($('<p></p>').text(name).addClass('name'));
+    messageContainer.append(chatbox);
+}
+
+function scrollToLastMessage(element){
+    $('html, body').animate({
+        scrollTop: element.offset().top
+    }, 1000);
 }
