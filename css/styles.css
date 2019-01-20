@@ -1,0 +1,22 @@
+.remote-side{
+    float:left;
+}
+.local-side{
+    float:right;
+}
+.chatbox{
+    border: black solid thin;
+    border-radius: 5px;
+    width: 80%;
+    margin-bottom: 10px;
+}
+.chatbox>p{
+    margin:10px;
+}
+.chatbox>p.name{
+    text-align: right;
+}
+.chat{
+    width: 80%;
+    max-width: 700px;
+}
