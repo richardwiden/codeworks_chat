@@ -1,7 +1,7 @@
 let messageBox, chatContainer, messageContainer;
 let ownerName = "richardwiden";
 let remoteName = "bot";
-
+let lastScrollToAnimationElement;
 $(function () {
     console.log("ready!");
     chatContainer = $('#chat');
@@ -21,10 +21,13 @@ function writeMessage(message, name) {
     chatbox.append($('<p></p>').text(message));
     chatbox.append($('<p></p>').text(name).addClass('name'));
     messageContainer.append(chatbox);
+    chatbox.fadeIn('slow');
+    scrollToElement(chatbox);
 }
 
-function scrollToLastMessage(element){
-    $('html, body').animate({
+function scrollToElement(element){
+    if(lastScrollToAnimationElement) lastScrollToAnimationElement.stop();
+    lastScrollToAnimationElement= $('html, body').animate({
         scrollTop: element.offset().top
     }, 1000);
 }
