@@ -17,8 +17,7 @@ $(function () {
     chatContainer = $('#chat');
     messageContainer = $('#messages');
     messageBox = $('#messageBox');
-    setTimeout(submitAnswer, 5000);
-    console.log(JSON.stringify(answers));
+    setTimeout(submitBotAnswer, 5000);
 });
 
 function submitForm() {
@@ -27,36 +26,27 @@ function submitForm() {
     writeMessage(lastMessage, "richardwiden");
 }
 
-function submitAnswer() {
-    let answer = getAnswer(lastMessage);
+function submitBotAnswer() {
+    let message = getAnswer(lastMessage) || getRandomQuestion();
     lastMessage = null;
-    let message = answer || getRandomQuestion();
-
     writeMessage(message, remoteName);
-    setTimeout(submitAnswer, Math.floor(Math.random() * 5000 + 1));
+    setTimeout(submitBotAnswer, Math.floor(Math.random() * 5000 + 1000));
 }
 
-function getAnswer() {
+function getAnswer(lastMessage) {
     if (lastMessage === null || lastMessage === undefined) return null;
-    console.log('Finding answersfor:' + lastMessage);
     for (let answer of answers)
-        if (lastMessage.match(answer.regex)) {
-            console.log('Found answer:' + JSON.stringify(answer));
-            return answer.answer;
-        }
-    console.log('Found no answer');
+        if (lastMessage.match(answer.regex)) return answer.answer;
     return null;
 }
-
 
 function getRandomQuestion() {
     return questions[Math.floor(Math.random() * questions.length)];
 }
 
-
 function writeMessage(message, name) {
     let messageClass = name === ownerName ? "local-side" : "remote-side";
-    let event = $('<div></div>').addClass(messageClass).addClass('event')
+    let event = $('<div></div>').addClass(messageClass).addClass('event');
     event.append($('<p></p>').text(message));
     event.append($('<p></p>').text(name).addClass('name'));
     event.hide();
