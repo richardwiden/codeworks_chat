@@ -1,7 +1,7 @@
 let messageBox, chatContainer, messageContainer, lastMessage, lastScrollToAnimationElement;
 let ownerName = "richardwiden";
 const remoteName = "bot";
-const questions = ['How are you?', 'What\'s you name?', 'Where are you from?'];
+const questions = ['How are you?', 'What\'s you name?', 'Where are you from?', '...'];
 const answers = [
     {
         regex: /^(?=.*?\bhow\b)(?=.*?\bare\b)(?=.*?\byou\b).*/gmi,
@@ -9,7 +9,11 @@ const answers = [
     },
     {
         regex: /^(?=.*?\bwhere\b)(?=.*?\bare\b)(?=.*?\bfrom\b).*/gmi,
-        answer: 'I was born in cyberspace'
+        answer: 'I was born in cyberspaced'
+    },
+    {
+        regex: /^(?=.*?\bhello\b).*/gmi,
+        answer: 'Well hello to you to'
     }
 ];
 
@@ -47,7 +51,7 @@ function getRandomQuestion() {
 function writeMessage(message, name) {
     let messageClass = name === ownerName ? "local-side" : "remote-side";
     let event = $('<div></div>').addClass(messageClass).addClass('event');
-    event.append($('<p></p>').text(message));
+    event.append($('<p></p>').text(message).addClass('message-text'));
     event.append($('<p></p>').text(name).addClass('name'));
     event.hide();
     messageContainer.append(event);
@@ -55,6 +59,10 @@ function writeMessage(message, name) {
     scrollToElement(event);
 }
 
+/**
+ * Scrolls to element and stops last animation
+ * @param element
+ */
 function scrollToElement(element) {
     if (lastScrollToAnimationElement) lastScrollToAnimationElement.stop();
     lastScrollToAnimationElement = $('html, body').animate({

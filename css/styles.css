@@ -1,9 +1,11 @@
 .remote-side {
     float: left;
+    background-color: lightsalmon;
 }
 
 .local-side {
     float: right;
+    background-color: darkseagreen;
 }
 
 .event {
